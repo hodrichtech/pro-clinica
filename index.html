@@ -6,6 +6,18 @@
   <title>Odonto & Estética Avançada (Demonstrativo) — Carteira de Imóveis & Consultoria</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    function switchTheme(themeName, btn) {
+      document.body.className = 'theme-' + themeName;
+      var btns = document.querySelectorAll('.theme-btn');
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].classList.remove('active');
+      }
+      if (btn) {
+        btn.classList.add('active');
+      }
+    }
+  </script>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter',sans-serif; transition: background-color 0.3s, color 0.3s, border-color 0.3s; }
     
@@ -221,20 +233,16 @@
   </div>
 
   <script>
-    var propertiesData = JSON.parse('[{"title":"Lentes de Contato Dental / Facetas em Resina","desc":"Transformação do sorriso em sessão única com escaneamento intraoral 3D e simulação digital.","categoria":"Estética Dental","priceStr":"Sob Avaliação","price":0,"image":"https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=400&auto=format&fit=crop&q=80"},{"title":"Clareamento Dental a Laser de Alta Potência","desc":"Sessão clínica supervisionada com proteção de gengiva e gel dessensibilizante de última geração.","categoria":"Clareamento","priceStr":"R$ 600,00","price":600,"image":"https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&auto=format&fit=crop&q=80"}]');
+    var rawCatalog = "%5B%7B%22title%22%3A%22Lentes%20de%20Contato%20Dental%20%2F%20Facetas%20em%20Resina%22%2C%22desc%22%3A%22Transforma%C3%A7%C3%A3o%20do%20sorriso%20em%20sess%C3%A3o%20%C3%BAnica%20com%20escaneamento%20intraoral%203D%20e%20simula%C3%A7%C3%A3o%20digital.%22%2C%22categoria%22%3A%22Est%C3%A9tica%20Dental%22%2C%22priceStr%22%3A%22Sob%20Avalia%C3%A7%C3%A3o%22%2C%22price%22%3A0%2C%22image%22%3A%22https%3A%2F%2Fimages.unsplash.com%2Fphoto-1629909613654-28e377c37b09%3Fw%3D400%26auto%3Dformat%26fit%3Dcrop%26q%3D80%22%7D%2C%7B%22title%22%3A%22Clareamento%20Dental%20a%20Laser%20de%20Alta%20Pot%C3%AAncia%22%2C%22desc%22%3A%22Sess%C3%A3o%20cl%C3%ADnica%20supervisionada%20com%20prote%C3%A7%C3%A3o%20de%20gengiva%20e%20gel%20dessensibilizante%20de%20%C3%BAltima%20gera%C3%A7%C3%A3o.%22%2C%22categoria%22%3A%22Clareamento%22%2C%22priceStr%22%3A%22R%24%20600%2C00%22%2C%22price%22%3A600%2C%22image%22%3A%22https%3A%2F%2Fimages.unsplash.com%2Fphoto-1588776814546-1ffcf47267a5%3Fw%3D400%26auto%3Dformat%26fit%3Dcrop%26q%3D80%22%7D%5D";
+    var propertiesData = [];
+    try {
+      propertiesData = JSON.parse(decodeURIComponent(rawCatalog));
+    } catch(e) {
+      console.error("Error parsing catalog JSON:", e);
+    }
+    
     var phone = "5513996351877";
     var mapsUrl = "https://www.google.com/maps?q=Belo+Horizonte+MG";
-
-    function switchTheme(themeName, btn) {
-      document.body.className = 'theme-' + themeName;
-      var btns = document.querySelectorAll('.theme-btn');
-      for (var i = 0; i < btns.length; i++) {
-        btns[i].classList.remove('active');
-      }
-      if (btn) {
-        btn.classList.add('active');
-      }
-    }
 
     // Build unique category pills
     (function initCategoryPills() {
